@@ -1,0 +1,250 @@
+.sensitivity-controls {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  width: 350px;
+  background: rgba(15, 20, 25, 0.95);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+}
+
+.controls-header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
+}
+
+.controls-header h2 {
+  margin: 0 0 10px 0;
+  color: #00ff88;
+  font-size: 1.4em;
+}
+
+.edpi-display {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.edpi-value {
+  font-size: 2em;
+  font-weight: bold;
+  color: #00ff88;
+}
+
+.edpi-label {
+  font-size: 0.9em;
+  color: #aaa;
+}
+
+.sensitivity-category {
+  background: #ff6b6b;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.control-group {
+  margin-bottom: 20px;
+}
+
+.control-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #ccc;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.dpi-input {
+  flex: 1;
+  padding: 8px 12px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1em;
+}
+
+.dpi-input:focus {
+  outline: none;
+  border-color: #00ff88;
+}
+
+.sensitivity-input {
+  flex: 1;
+  padding: 8px 12px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1em;
+  width: 100px;
+}
+
+.sensitivity-input:focus {
+  outline: none;
+  border-color: #00ff88;
+}
+
+.calibrate-btn {
+  padding: 8px 12px;
+  background: #00ff88;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9em;
+  transition: background-color 0.2s;
+}
+
+.calibrate-btn:hover {
+  background: #00cc6a;
+}
+
+.sensitivity-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.sensitivity-slider {
+  flex: 1;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.sensitivity-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #00ff88;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #0a0a0a;
+}
+
+.sensitivity-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #00ff88;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #0a0a0a;
+}
+
+.sensitivity-value {
+  min-width: 60px;
+  text-align: center;
+  font-weight: bold;
+  color: #00ff88;
+  background: #1a1a1a;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #333;
+}
+
+.checkbox-label {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  margin-bottom: 0 !important;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #00ff88;
+}
+
+.recommendations {
+  border-top: 1px solid #333;
+  padding-top: 15px;
+  margin-bottom: 20px;
+}
+
+.recommendations h3 {
+  margin: 0 0 10px 0;
+  color: #00ff88;
+  font-size: 1.1em;
+}
+
+.recommendation-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+}
+
+.recommendation-item span:first-child {
+  color: #aaa;
+}
+
+.recommendation-item span:last-child {
+  color: #fff;
+  font-weight: 500;
+}
+
+.instructions {
+  border-top: 1px solid #333;
+  padding-top: 15px;
+}
+
+.instructions h3 {
+  margin: 0 0 10px 0;
+  color: #00ff88;
+  font-size: 1.1em;
+}
+
+.instructions ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.instructions li {
+  margin-bottom: 5px;
+  font-size: 0.9em;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+.game-mode-select {
+  width: 100%;
+  padding: 8px 12px;
+  background: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid #333;
+  border-radius: 4px;
+  font-size: 0.9em;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.game-mode-select:hover {
+  border-color: #00ff88;
+}
+
+.game-mode-select:focus {
+  border-color: #00ff88;
+  box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
+}
