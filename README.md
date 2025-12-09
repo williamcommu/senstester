@@ -21,7 +21,7 @@ A 3D web application for testing and calibrating mouse sensitivity settings for 
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/williamcommu/senstester
 cd senstester
 ```
 
