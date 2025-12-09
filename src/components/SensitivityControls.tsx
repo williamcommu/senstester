@@ -9,6 +9,106 @@ interface SensitivityControlsProps {
 
 const SensitivityControls: React.FC<SensitivityControlsProps> = ({ onOpenDPICalibration }) => {
   const { state, updateDPI, updateSensitivity, toggleAutoAdjustment, updateGameMode } = useSensitivity()
+  const intervalRef = React.useRef<number | null>(null)
+  const activeKeyRef = React.useRef<string | null>(null)
+  const currentSensitivityRef = React.useRef(state.sensitivity)
+  
+  // Keep ref updated with current sensitivity
+  React.useEffect(() => {
+    currentSensitivityRef.current = state.sensitivity
+  }, [state.sensitivity])
+
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) return
+      if ((event.target as HTMLElement).tagName === 'INPUT' || (event.target as HTMLElement).tagName === 'SELECT') return
+      
+      event.preventDefault()
+      
+      // Prevent multiple intervals for the same key
+      if (activeKeyRef.current === event.key) return
+      
+      // Clear any existing interval
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+      
+      activeKeyRef.current = event.key
+      
+      let increment = 0.01 // Default increment
+      
+      // Set increment based on specific key
+      if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        increment = 0.01
+      } else if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+        increment = 0.1
+      }
+      
+      const adjustSensitivity = (direction: 'up' | 'down') => {
+        console.log(`key ${event.key} held`)
+        const current = currentSensitivityRef.current
+        const newValue = direction === 'up'
+          ? Math.min(2.0, Math.round((current + increment) * 1000) / 1000)
+          : Math.max(0.1, Math.round((current - increment) * 1000) / 1000)
+        updateSensitivity(newValue)
+        currentSensitivityRef.current = newValue // Update ref immediately
+      }
+      
+      // Immediate adjustment
+      if (event.key === 'ArrowUp') {
+        console.log(`key ${event.key} held`)
+        adjustSensitivity('up')
+        intervalRef.current = window.setInterval(() => adjustSensitivity('up'), 250)
+      } else if (event.key === 'ArrowRight') {
+        console.log(`key ${event.key} held`)
+        adjustSensitivity('up')
+        intervalRef.current = window.setInterval(() => adjustSensitivity('up'), 250)
+      } else if (event.key === 'ArrowDown') {
+        console.log(`key ${event.key} held`)
+        adjustSensitivity('down')
+        intervalRef.current = window.setInterval(() => adjustSensitivity('down'), 250)
+      } else if (event.key === 'ArrowLeft') {
+        console.log(`key ${event.key} held`)
+        adjustSensitivity('down')
+        intervalRef.current = window.setInterval(() => adjustSensitivity('down'), 250)
+      }
+    }
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) return
+      
+      if (activeKeyRef.current === event.key) {
+        activeKeyRef.current = null
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current)
+          intervalRef.current = null
+        }
+      }
+    }
+
+    const handleBlur = () => {
+      activeKeyRef.current = null
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keyup', handleKeyUp)
+    window.addEventListener('blur', handleBlur)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keyup', handleKeyUp)
+      window.removeEventListener('blur', handleBlur)
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }
+  }, [])
 
   const handleSensitivityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(event.target.value)
@@ -142,6 +242,10 @@ const SensitivityControls: React.FC<SensitivityControlsProps> = ({ onOpenDPICali
           <li>Use the crosshair to aim at the red targets</li>
           <li>Click to shoot targets and test your aim</li>
           <li>Adjust sensitivity with the slider for comfort</li>
+          <li><strong>Use ↑ key to increase sensitivity by 0.01 (fine)</strong></li>
+          <li><strong>Use → key to increase sensitivity by 0.1 (coarse)</strong></li>
+          <li><strong>Use ↓ key to decrease sensitivity by 0.01 (fine)</strong></li>
+          <li><strong>Use ← key to decrease sensitivity by 0.1 (coarse)</strong></li>
           <li>Enable auto-adjustment to fine-tune based on accuracy</li>
           <li>Press ESC to exit mouse lock mode</li>
         </ul>
